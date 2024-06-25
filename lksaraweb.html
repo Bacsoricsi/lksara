@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interactive Website</title>
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+    background: linear-gradient(to bottom right, #4CAF50, #2196F3);
+    animation: gradientAnimation 15s ease infinite;
+  }
+  @keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .instagram-button {
+    padding: 10px 20px;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: #333;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  .instagram-button:hover {
+    background-color: #555;
+  }
+  .textbox {
+    margin-top: 20px;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center;
+    width: 200px;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+  .textbox:focus {
+    border-color: #2196F3;
+  }
+  .submit-button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #2196F3;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  .submit-button:hover {
+    background-color: #0b7dda;
+  }
+  .counter {
+    display: none;
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+    margin-top: 20px;
+  }
+  .error-message {
+    display: none;
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <a href="https://www.instagram.com/lk_.sara/" class="instagram-button" id="instagramButton">Instagram</a>
+  <input type="text" class="textbox" id="codeInput" placeholder="Web. Admin" maxlength="4">
+  <button class="submit-button" onclick="checkCode()">Submit</button>
+  <div class="counter" id="clickCounter">0</div>
+  <div class="error-message" id="errorMessage"></div>
+</div>
+
+<script>
+  // Counter initialization and storage
+  let clickCount = parseInt(localStorage.getItem('clickCount')) || 0;
+
+  // Function to update counter display
+  function updateCounter() {
+    document.getElementById('clickCounter').textContent = clickCount;
+  }
+
+  // Function to handle Instagram button click
+  document.getElementById('instagramButton').addEventListener('click', function() {
+    clickCount++;
+    localStorage.setItem('clickCount', clickCount);
+    updateCounter();
+  });
+
+  // Function to check and handle code submission
+  function checkCode() {
+    let userInput = document.getElementById('codeInput').value.trim();
+    if (userInput === "0112") {
+      // Code is correct
+      document.getElementById('codeInput').style.display = 'none';
+      document.getElementById('clickCounter').style.display = 'block';
+      updateCounter();
+    } else {
+      // Incorrect code
+      document.getElementById('errorMessage').style.display = 'block';
+      document.getElementById('errorMessage').textContent = 'Incorrect Code!';
+      setTimeout(function() {
+        document.getElementById('errorMessage').style.display = 'none';
+      }, 2000); // Hide error message after 2 seconds
+    }
+    return false; // Prevent form submission
+  }
+</script>
+
+</body>
+</html>
